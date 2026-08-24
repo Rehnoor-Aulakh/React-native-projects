@@ -6,7 +6,7 @@ import DiceThree from '../assets/Three.png'
 import DiceFour from '../assets/Four.png'
 import DiceFive from '../assets/Five.png'
 import DiceSix from '../assets/Six.png'
-
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback'
 type DiceProps = PropsWithChildren<{
   imageUrl: ImageSourcePropType
 }>
@@ -20,10 +20,15 @@ const Dice = ({imageUrl}: DiceProps): JSX.Element => {
 }
 
 export default function App() {
+  const options = {
+    enableVibrateFallback: true,
+    ignoreAndroidSystemSettings: false,
+  }
   // current image is a number from 1 to 6
   const [diceImage, setDiceImage] = useState<ImageSourcePropType>(DiceOne)
   
   function handlePress() {
+    ReactNativeHapticFeedback.trigger("impactMedium", options);
     const randomNumber = Math.floor(Math.random() * 6) + 1
     switch (randomNumber) {
       case 1: 

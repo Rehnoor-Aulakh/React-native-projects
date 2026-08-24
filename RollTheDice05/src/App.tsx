@@ -21,17 +21,38 @@ const Dice = ({imageUrl}: DiceProps): JSX.Element => {
 
 export default function App() {
   // current image is a number from 1 to 6
-  const [currentImage, setCurrentImage] = useState(Number(0))
-  const images=[require("../assets/One.png"), require("../assets/Two.png"), require("../assets/Three.png"), require("../assets/Four.png"), require("../assets/Five.png"), require("../assets/Six.png")]
+  const [diceImage, setDiceImage] = useState<ImageSourcePropType>(DiceOne)
   
   function handlePress() {
-    const randomNumber = Math.floor(Math.random() * 6)
-    setCurrentImage(randomNumber)
+    const randomNumber = Math.floor(Math.random() * 6) + 1
+    switch (randomNumber) {
+      case 1: 
+        setDiceImage(DiceOne)
+        break
+      case 2: 
+        setDiceImage(DiceTwo)
+        break
+      case 3: 
+        setDiceImage(DiceThree)
+        break
+      case 4: 
+        setDiceImage(DiceFour)
+        break
+      case 5: 
+        setDiceImage(DiceFive)
+        break
+      case 6: 
+        setDiceImage(DiceSix)
+        break
+      default: 
+        setDiceImage(DiceOne)
+        break
+    }
   }
 
   return (
     <View style={styles.container}>
-      <Image source={images[currentImage]} />
+      <Dice imageUrl={diceImage} />
       <TouchableOpacity onPress={handlePress}>
         <View style={styles.button}>
           <Text style={styles.btnText}>Roll Dice</Text>

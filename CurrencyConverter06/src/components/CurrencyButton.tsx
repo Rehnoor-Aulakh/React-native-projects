@@ -1,22 +1,34 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text } from 'react-native'
 import React from 'react'
 
-export default function CurrencyButton({currency}: {currency: Currency}) {
+import type { JSX, PropsWithChildren } from 'react'
+
+type CurrencyButtonProps = PropsWithChildren<{
+    name: string;
+    flag: string;
+    symbol: string;
+    currency: Currency;
+    targetCurrency: Currency;
+    setTargetCurrency: (currency: Currency) => void;
+}>
+export default function CurrencyButton({name, flag, symbol, currency, targetCurrency, setTargetCurrency}: CurrencyButtonProps): JSX.Element {
   return (
-    <View key={currency.name} style={styles.currencyBtn}>
-                <Text style={styles.flag}>{currency.flag}</Text>
-                <Text style={styles.symbol}>{currency.symbol}</Text>
-                <Text style={styles.name}>{currency.name}</Text>
-    </View>
+    <Pressable key={name} style={[styles.currencyBtn, {backgroundColor: targetCurrency.name === name ? '#4CAF50' : 'white'}]} onPress={() => setTargetCurrency(currency)} >
+                <Text style={styles.flag}>{flag}</Text>
+                <Text style={styles.symbol}>{symbol}</Text>
+                <Text style={styles.name}>{name}</Text>
+    </Pressable>
   )
 }
 
 const styles = StyleSheet.create({
     currencyBtn: {
-        backgroundColor: 'white',
         margin: 10,
         padding: 10,
         borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
         width: 80,
         height: 110,
     },

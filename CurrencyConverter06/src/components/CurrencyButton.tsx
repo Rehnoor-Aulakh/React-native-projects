@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text } from 'react-native'
+import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback'
 import type { JSX, PropsWithChildren } from 'react'
@@ -10,21 +10,13 @@ const options = {
 type CurrencyButtonProps = PropsWithChildren<{
     name: string;
     flag: string;
-    symbol: string;
-    currency: Currency;
-    targetCurrency: Currency;
-    setTargetCurrency: (currency: Currency) => void;
 }>
-export default function CurrencyButton({name, flag, symbol, currency, targetCurrency, setTargetCurrency}: CurrencyButtonProps): JSX.Element {
+export default function CurrencyButton(props: CurrencyButtonProps): JSX.Element {
   return (
-    <Pressable key={name} style={[styles.currencyBtn, {backgroundColor: targetCurrency.name === name ? '#4CAF50' : 'white'}]} onPress={() => {
-      setTargetCurrency(currency);
-      ReactNativeHapticFeedback.trigger('impactMedium', options);
-    }} >
-                <Text style={styles.flag}>{flag}</Text>
-                <Text style={styles.symbol}>{symbol}</Text>
-                <Text style={styles.name}>{name}</Text>
-    </Pressable>
+    <View style={styles.buttonContainer}>
+        <Text style={styles.flag}>{props.flag}</Text>
+        <Text style={styles.country}>{props.name}</Text>
+    </View>
   )
 }
 
@@ -50,5 +42,10 @@ const styles = StyleSheet.create({
     name: {
         fontSize: 12,
         textAlign: 'center',
+    },
+    country: {
+
+    },
+    buttonContainer: {
     }
 })

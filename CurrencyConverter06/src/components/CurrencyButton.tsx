@@ -1,7 +1,11 @@
 import { Pressable, StyleSheet, Text } from 'react-native'
 import React from 'react'
-
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback'
 import type { JSX, PropsWithChildren } from 'react'
+
+const options = { 
+    enableVibrateFallback: true, ignoreAndroidSystemSettings: false, 
+}
 
 type CurrencyButtonProps = PropsWithChildren<{
     name: string;
@@ -13,7 +17,10 @@ type CurrencyButtonProps = PropsWithChildren<{
 }>
 export default function CurrencyButton({name, flag, symbol, currency, targetCurrency, setTargetCurrency}: CurrencyButtonProps): JSX.Element {
   return (
-    <Pressable key={name} style={[styles.currencyBtn, {backgroundColor: targetCurrency.name === name ? '#4CAF50' : 'white'}]} onPress={() => setTargetCurrency(currency)} >
+    <Pressable key={name} style={[styles.currencyBtn, {backgroundColor: targetCurrency.name === name ? '#4CAF50' : 'white'}]} onPress={() => {
+      setTargetCurrency(currency);
+      ReactNativeHapticFeedback.trigger('impactMedium', options);
+    }} >
                 <Text style={styles.flag}>{flag}</Text>
                 <Text style={styles.symbol}>{symbol}</Text>
                 <Text style={styles.name}>{name}</Text>

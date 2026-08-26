@@ -60,6 +60,7 @@ export default function ControlCenter() {
 const styles = StyleSheet.create({
     container: {
         marginBottom: 56,
+        flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
@@ -68,6 +69,6 @@ const styles = StyleSheet.create({
         color: '#ffffff',
     },
     playButton: {
-        marginHorizontal: 20,
+        marginHorizontal: 24,
     },
 });

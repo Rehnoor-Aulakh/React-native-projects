@@ -2,6 +2,8 @@ import { ActivityIndicator, SafeAreaView, StyleSheet, Text, View } from 'react-n
 import React, {useState, useEffect} from 'react';
 import {setupPlayer, addTrack} from '../musicPlayerServices';
 import ControlCenter from './components/ControlCenter';
+import SongSlider from './components/SongSlider';
+import MusicPlayer from './screens/MusicPlayer';
 
 export default function App() {
   const [isPlayerReady, setIsPlayerReady] = useState(false);
@@ -27,8 +29,8 @@ export default function App() {
   }
 
   return (
-    <View>
-      <ControlCenter />
+    <View style={styles.container}>
+      <MusicPlayer />
     </View>
   );
 }

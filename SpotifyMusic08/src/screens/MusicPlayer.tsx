@@ -1,6 +1,6 @@
-import { Dimensions, FlatList, Image, StyleSheet, Text, View } from 'react-native'
-import React from 'react';
-import  { Track, useActiveTrack } from 'react-native-track-player';
+import { Dimensions, FlatList, Image, StyleSheet, View } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import  TrackPlayer, { Track, useActiveTrack } from 'react-native-track-player';
 
 import { playListData } from '../constants';
 import SongInfo from '../components/SongInfo';
@@ -11,17 +11,27 @@ const { width } = Dimensions.get('window');
 
 export default function MusicPlayer() {
     const track = useActiveTrack();
+    const flatListRef = useRef<FlatList<Track>>(null);
 
-    const renderArtWork = ({item} : {item: Track}) => {
+    // the buttons scroll the flatList
+
+    useEffect(() => {
+        if(!track) return;
+
+        const index = playListData.findIndex(song => song.id === track.id);
+        flatListRef.current?.scrollToIndex({index, animated: true});
+    }, [track]);
+
+    const renderArtWork = () => {
         return (
             <View
             style={styles.listArtWrapper}
             >
                 <View style={styles.albumContainer}>
-                     {item.artwork && (
+                     {track?.artwork && (
                         <Image
                             style={styles.albumArtImg}
-                            source={{uri:item.artwork?.toString()}}
+                            source={{uri:track?.artwork?.toString()}}
                         />
                      )}
                 </View>
@@ -29,15 +39,22 @@ export default function MusicPlayer() {
         );
     };
 
+    const handleScroll = async (event: any) => {
+        const index = Math.round(event.nativeEvent.contentOffset.x / width);
+        await TrackPlayer.skip(index);
+    };
+
     return (
     <View style={styles.container}>
       <FlatList
+        ref={flatListRef}
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
         data={playListData}
         renderItem={renderArtWork}
         keyExtractor={song => song.id.toString()}
+        onMomentumScrollEnd={handleScroll}
       />
       <SongInfo track={track}/>
       <SongSlider />

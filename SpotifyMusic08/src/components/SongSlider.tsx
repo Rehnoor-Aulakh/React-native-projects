@@ -1,7 +1,7 @@
 import { StyleSheet,  Text,  View } from 'react-native'
 import React from 'react'
 import Slider from '@react-native-community/slider'
-import { useProgress } from 'react-native-track-player';
+import TrackPlayer, { useProgress } from 'react-native-track-player';
 export default function SongSlider() {
     // Get the current position and duration of the song
     const { duration, position} = useProgress();
@@ -15,6 +15,9 @@ export default function SongSlider() {
         value={position}
         minimumTrackTintColor="#FFFFFF"
         maximumTrackTintColor="#000000"
+        onSlidingComplete={async (value) => {
+            await TrackPlayer.seekTo(value);
+        }}
         />
         <View style={styles.timeContainer}>
             <Text style={styles.time}>

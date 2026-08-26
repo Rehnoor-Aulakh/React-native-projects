@@ -1,8 +1,6 @@
-import { ActivityIndicator, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, SafeAreaView, StyleSheet,  View } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {setupPlayer, addTrack} from '../musicPlayerServices';
-import ControlCenter from './components/ControlCenter';
-import SongSlider from './components/SongSlider';
 import MusicPlayer from './screens/MusicPlayer';
 
 export default function App() {
@@ -11,11 +9,13 @@ export default function App() {
   async function setup() {
     let isSetup = await setupPlayer();
     if(isSetup) {
+      // adds playlist data to the queue
       await addTrack();
     }
     setIsPlayerReady(isSetup);
   }
 
+  // setup on the initial render
   useEffect(() => {
     setup();
   }, []);
@@ -38,5 +38,5 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  }
+  },
 });

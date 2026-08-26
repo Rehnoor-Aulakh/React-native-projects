@@ -28,14 +28,14 @@ export default function ControlCenter() {
             } else {
                 await TrackPlayer.pause();
             }
-        } 
+        }
     };
   return (
     <View style={styles.container}>
         <Pressable onPress={skipToPrevious}>
-            <Icon 
-            name="skip-previous" 
-            size={75} 
+            <Icon
+            name="skip-previous"
+            size={50}
             style={styles.icon}
             />
         </Pressable>
@@ -49,7 +49,7 @@ export default function ControlCenter() {
         <Pressable onPress={skipToNext}>
             <Icon 
             name="skip-next" 
-            size={75} 
+            size={50} 
             style={styles.icon}
             />
         </Pressable>

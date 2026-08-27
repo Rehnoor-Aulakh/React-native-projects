@@ -17,7 +17,7 @@ type LoginUserAccount = {
     password: string;
 }
 
-class AppwriteService {
+export default class AppwriteService {
     account;
 
     constructor() {
@@ -25,7 +25,7 @@ class AppwriteService {
             .setEndpoint(APPWRITE_ENDPOINT)
             .setProject(APPWRITE_PROJECT_ID);
 
-        this.accou nt = new Account(appwriteClint);
+        this.account = new Account(appwriteClint);
     }
 
     // Create a new record of user inside appwrite
@@ -90,4 +90,3 @@ class AppwriteService {
     }
 } 
        
-export default new AppwriteService();

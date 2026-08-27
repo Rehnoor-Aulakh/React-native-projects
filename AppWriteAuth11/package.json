@@ -17,6 +17,7 @@
     "@rneui/themed": "^5.0.0",
     "appwrite": "^26.2.0",
     "react": "19.2.3",
+    "react-hook-form": "^7.86.0",
     "react-native": "0.87.1",
     "react-native-config": "^1.7.1",
     "react-native-safe-area-context": "^5.9.1",
